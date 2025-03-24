@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% block title %}New Cafe{% endblock %}
+
+{% block additional_styles %}
+.add-cafe-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: var(--cafe-beige);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-label {
+  color: var(--cafe-brown);
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.form-control {
+  border-color: var(--cafe-accent);
+  background-color: white;
+}
+
+.form-control:focus {
+  border-color: var(--cafe-brown);
+  box-shadow: 0 0 0 0.2rem rgba(111, 78, 55, 0.25);
+}
+
+.form-check-label {
+  margin-left: 5px;
+  color: var(--cafe-dark);
+}
+
+.btn-submit {
+  background-color: var(--cafe-brown);
+  color: white;
+  border: none;
+  transition: background-color 0.2s;
+}
+
+.btn-submit:hover {
+  background-color: var(--cafe-dark);
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+{% endblock %}
+
+{% block content %}
+<div class="container add-cafe-container">
+  <h1 class="text-center mb-4" style="color: var(--cafe-brown);">Hi, do you want to add new cafe to our cafe world? :)</h1>
+
+  <form method="POST" action="{{ url_for('add_cafe') }}">
+    {{ form.csrf_token }}
+
+    <div class="form-group mb-3">
+      {{ form.name.label(class="form-label") }}
+      {{ form.name(class="form-control") }}
+      {% if form.name.errors %}
+        {% for error in form.name.errors %}
+          <div class="error-message">{{ error }}</div>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    <div class="form-group mb-3">
+      {{ form.map_url.label(class="form-label") }}
+      {{ form.map_url(class="form-control") }}
+      {% if form.map_url.errors %}
+        {% for error in form.map_url.errors %}
+          <div class="error-message">{{ error }}</div>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    <div class="form-group mb-3">
+      {{ form.img_url.label(class="form-label") }}
+      {{ form.img_url(class="form-control") }}
+      {% if form.img_url.errors %}
+        {% for error in form.img_url.errors %}
+          <div class="error-message">{{ error }}</div>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    <div class="form-group mb-3">
+      {{ form.location.label(class="form-label") }}
+      {{ form.location(class="form-control") }}
+      {% if form.location.errors %}
+        {% for error in form.location.errors %}
+          <div class="error-message">{{ error }}</div>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 form-group mb-3">
+        {{ form.seats.label(class="form-label") }}
+        {{ form.seats(class="form-control") }}
+        {% if form.seats.errors %}
+          {% for error in form.seats.errors %}
+            <div class="error-message">{{ error }}</div>
+          {% endfor %}
+        {% endif %}
+      </div>
+
+      <div class="col-md-6 form-group mb-3">
+        {{ form.coffee_price.label(class="form-label") }}
+        {{ form.coffee_price(class="form-control") }}
+        {% if form.coffee_price.errors %}
+          {% for error in form.coffee_price.errors %}
+            <div class="error-message">{{ error }}</div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <div class="form-check">
+          {{ form.has_sockets(class="form-check-input") }}
+          {{ form.has_sockets.label(class="form-check-label") }}
+        </div>
+
+        <div class="form-check">
+          {{ form.has_toilet(class="form-check-input") }}
+          {{ form.has_toilet.label(class="form-check-label") }}
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-check">
+          {{ form.has_wifi(class="form-check-input") }}
+          {{ form.has_wifi.label(class="form-check-label") }}
+        </div>
+
+        <div class="form-check">
+          {{ form.can_take_calls(class="form-check-input") }}
+          {{ form.can_take_calls.label(class="form-check-label") }}
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center">
+      <button type="submit" class="btn btn-submit">Add New Cafe</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

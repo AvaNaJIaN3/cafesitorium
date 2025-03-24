@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+
+{% block title %}Cafe Time - All cafes{% endblock %}
+
+{% block additional_styles %}
+.cafe-card {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  height: 100%;
+  background-color: white;
+  text-decoration: none;
+  color: inherit;
+}
+
+.cafe-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+.cafe-img-container {
+  height: 200px;
+  overflow: hidden;
+}
+
+.cafe-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.cafe-card:hover .cafe-img {
+  transform: scale(1.05);
+}
+
+.cafe-details {
+  padding: 1.5rem;
+}
+
+.cafe-name {
+  font-family: 'Playfair Display', serif;
+  color: var(--cafe-dark);
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.cafe-location {
+  color: #666;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.location-icon {
+  color: var(--cafe-brown);
+  margin-right: 8px;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  color: var(--cafe-dark);
+  font-weight: 700;
+  margin-bottom: 2rem;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 10px;
+}
+
+.section-title:after {
+  content: '';
+  position: absolute;
+  width: 50%;
+  height: 3px;
+  background-color: var(--cafe-brown);
+  bottom: 0;
+  left: 0;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 0;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  color: var(--cafe-accent);
+  margin-bottom: 1rem;
+}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1 class="section-title">All cafes</h1>
+
+  {% if cafes %}
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      {% for cafe in cafes %}
+        <div class="col">
+          <a href="{{ url_for('cafe', id=cafe.id) }}" class="cafe-card">
+            <div class="cafe-img-container">
+              {% if cafe.img_url %}
+                <img src="{{ cafe.img_url }}" alt="{{ cafe.name }}" class="cafe-img">
+              {% else %}
+                <img src="{{ url_for('static', filename='images/default-cafe.jpg') }}" alt="{{ cafe.name }}" class="cafe-img">
+              {% endif %}
+            </div>
+            <div class="cafe-details">
+              <h3 class="cafe-name">{{ cafe.name }}</h3>
+              <div class="cafe-location">
+                <i class="location-icon fa-solid fa-location-dot"></i>
+                <span>{{ cafe.location }}</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="empty-state">
+      <div class="empty-icon">
+        <i class="fa-solid fa-mug-hot"></i>
+      </div>
+      <h3>There is no cafe yet</h3>
+      <p>Be first who will add cafe to our database</p>
+      <a href="#" class="btn cta-button mt-3">Add cafe</a>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Cafelomania{% endblock %}</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cafe-brown: #6F4E37;
+      --cafe-beige: #F5F5DC;
+      --cafe-dark: #3D2314;
+      --cafe-accent: #D4B996;
+    }
+
+    .navbar {
+      background-color: var(--cafe-beige);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 12px 0;
+    }
+
+    .navbar-brand {
+      font-family: 'Playfair Display', serif;
+      color: var(--cafe-brown) !important;
+      font-weight: bold;
+      font-size: 1.8rem;
+    }
+
+    .nav-link {
+      color: var(--cafe-brown) !important;
+      margin-right: 18px;
+      transition: color 0.2s;
+      font-size: 1.2rem;
+      font-weight: 600;
+      padding: 8px 16px !important;
+      border-radius: 4px;
+    }
+
+    .nav-link:hover {
+      color: #FFFFFF !important;
+      background-color: var(--cafe-brown);
+    }
+
+    footer {
+      background-color: var(--cafe-beige);
+      color: var(--cafe-brown);
+      padding: 20px 0;
+      margin-top: auto;
+      font-size: 1.1rem;
+    }
+
+    .social-icon {
+      color: var(--cafe-brown);
+      font-size: 1.8rem;
+      margin: 0 10px;
+      transition: color 0.2s;
+    }
+
+    .social-icon:hover {
+      color: #45332B;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-size: 1.1rem;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .content {
+      flex: 1;
+      padding: 40px 0;
+    }
+
+    {% block additional_styles %}{% endblock %}
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+      <a class="navbar-brand" href="{{ url_for('home') }}">Cafe Time</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for ('home') }}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for ('all_cafes') }}">All Cafes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for ('add_cafe') }}">Add Cafe</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Content Area -->
+  <div class="content">
+    {% block content %}{% endblock %}
+  </div>
+
+  <!-- Footer -->
+  <footer class="py-3">
+    <div class="container text-center">
+      <div class="mb-2">© 2025 Cafe Time. All rights are reserved</div>
+      <div>
+        <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  {% block scripts %}{% endblock %}
+</body>
+</html>
